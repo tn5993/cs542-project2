@@ -1,6 +1,5 @@
 package store;
 
-public interface IGetable {
-	String Get(Number value);
-	String Get(String value);
+public interface IGetable<T> {
+	String Get(T value);
 }

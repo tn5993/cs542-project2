@@ -34,8 +34,8 @@ public class Node<K extends Comparable<K>> {
 		}
 	}
 	
-	public void removeKey(Integer i) {
-		keys.remove(i.intValue());
+	public void removeKey(int i) {
+		keys.remove(i);
 	}
 	
 	
@@ -47,8 +47,8 @@ public class Node<K extends Comparable<K>> {
 		children.add(c);
 	}
 
-	public void removeChild(Integer i) {
-		children.remove(i.intValue());
+	public void removeChild(int i) {
+		children.remove(i);
 	}
 
 	public Integer getLength() {

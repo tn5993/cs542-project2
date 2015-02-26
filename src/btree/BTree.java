@@ -35,15 +35,21 @@ public class BTree<Key extends Comparable<Key>> {
 		Node<Key> y = x.getChild(i);
 		Node<Key> z = Node.newInstance(y.getIsLeaf());
 		
-		for (Integer j = 0; j < t - 1; j++) {
+		for (int j = 0; j < t - 1; j++) {
 			z.insertKey(y.getKey(j+t));
-			y.removeKey(j+t);
+		}
+		
+		for (int j = 0; j < t - 1; j++) {
+			y.removeKey(t);
 		}
 		
 		if (!y.getIsLeaf()) {
-			for (Integer j = 0; j < t; j++) {
+			for (int j = 0; j < t; j++) {
 				z.insertChild(y.getChild(j+t));
-				y.removeChild(j+t);
+			}
+			
+			for (int j = 0; j < t; j++) {
+				y.removeChild(t);
 			}
 		}
 		x.insertChild(i+1, z);
@@ -89,7 +95,7 @@ public class BTree<Key extends Comparable<Key>> {
 	}
 
 	public static void main(String[] args) {
-		BTree<Integer> tree = BTree.newInstance(2);
+		BTree<Integer> tree = BTree.newInstance(4);
 		tree.insert(10);
 		tree.insert(12);
 		tree.insert(13);
@@ -97,6 +103,20 @@ public class BTree<Key extends Comparable<Key>> {
 		tree.insert(14);
 		tree.insert(15);
 		tree.insert(16);
+		tree.insert(17);
+		tree.insert(18);
+		tree.insert(19);
+		tree.insert(20);
+		tree.insert(21);
+		tree.insert(22);
+		tree.insert(23);
+		tree.insert(24);
+		tree.insert(25);
+		tree.insert(26);
+		tree.insert(27);
+		tree.insert(28);
+		tree.insert(23);
+
 
 		Pair<Node<Integer>, Integer> result = tree.get(11);
 		System.out.println(tree.walk(0));

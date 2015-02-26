@@ -1,5 +1,5 @@
 package store;
 
-public interface IRemovable {
-	void Remove(String key);
+public interface IRemovable<K> {
+	void Remove(K key);
 }

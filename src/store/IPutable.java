@@ -1,5 +1,5 @@
 package store;
 
-public interface IPutable<T> {
-	void Put(String key, T value);
+public interface IPutable<K,V> {
+	void Put(K key, V value);
 }

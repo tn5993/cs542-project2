@@ -1,5 +1,5 @@
 package store;
 
-public interface IGetable<T> {
-	String Get(T value);
+public interface IGetable<V> {
+	String Get(V value);
 }

@@ -51,10 +51,38 @@ public class Node<K extends Comparable<K>> {
 		children.remove(i);
 	}
 
-	public Integer getLength() {
+	public Integer getKeyLength() {
 		return keys.size();
 	}
+	
+	public Integer getChildLength() {
+		return children.size();
+	}
 
+	public Node<K> getFirstChild() {
+		Node<K> result = null;
+		if (!children.isEmpty()) {
+			result = children.get(0);
+		}
+		return result;
+	}
+	
+	public K getFirstKey() {
+		K key = null;
+		if (!keys.isEmpty()) {
+			key = keys.get(0);
+		}
+		return key;
+	}
+	
+	public K getLastKey() {
+		return keys.get(keys.size()-1);
+	}
+	
+	public Node<K> getLastChild() {
+		return children.get(children.size()-1);
+	}
+	
 	public Node<K> getChild(Integer i) {
 		return this.children.get(i);
 	}

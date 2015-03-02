@@ -1,10 +1,12 @@
 package btree;
 
+import java.util.Set;
+
 public class BTree<Key extends Comparable<Key>> {
 	private Integer t; // minimum number of keys in any node other than the root
 	private Node<Key> root;
 
-	public BTree(Integer t) {
+	private BTree(Integer t) {
 		this.t = t;
 		this.root = new Node<Key>(true);
 	}
@@ -17,12 +19,12 @@ public class BTree<Key extends Comparable<Key>> {
 		return search(root, key);
 	}
 	
-	public Pair<Node<Key>, Integer> search(Node<Key> x, Key key) {
+	private Pair<Node<Key>, Integer> search(Node<Key> x, Key key) {
 		Integer i = 0;
-		while (i < x.getLength() && key.compareTo(x.getKey(i)) > 0) {
+		while (i < x.getKeyLength() && key.compareTo(x.getKey(i)) > 0) {
 			i = i + 1;
 		}
-		if (i < x.getLength() && key.equals(x.getKey(i))) {
+		if (i < x.getKeyLength() && key.equals(x.getKey(i))) {
 			return Pair.newInstance(x, i);
 		} else if (x.getIsLeaf()) {
 			return null;
@@ -31,7 +33,7 @@ public class BTree<Key extends Comparable<Key>> {
 		}
 	}
 
-	public void splitChild(Node<Key> x, Integer i) {
+	private void splitChild(Node<Key> x, Integer i) {
 		Node<Key> y = x.getChild(i);
 		Node<Key> z = Node.newInstance(y.getIsLeaf());
 		
@@ -52,9 +54,9 @@ public class BTree<Key extends Comparable<Key>> {
 		y.removeKey(t-1);
 	}
 
-	public void insert(Key k) {
+	public void put(Key k) {
 		Node<Key> r = this.root;
-		if (r.getLength() == (2 * t - 1)) {
+		if (r.getKeyLength() == (2 * t - 1)) {
 			Node<Key> s = new Node<Key>(false);
 			this.root = s;
 			s.insertChild(r);
@@ -65,22 +67,64 @@ public class BTree<Key extends Comparable<Key>> {
 		}
 	}
 
-	public void insertNonFull(Node<Key> x, Key k) {
+	private void insertNonFull(Node<Key> x, Key k) {
 		if (x.getIsLeaf()) {
 			x.insertKey(k);
 		} else {
-			Integer i = x.getLength() - 1;
+			Integer i = x.getKeyLength() - 1;
 			while (i >= 0 && k.compareTo(x.getKey(i)) < 0) {
 				i = i - 1;
 			}
 			i = i + 1;
-			if (x.getChild(i).getLength() == 2 * t - 1) {
+			if (x.getChild(i).getKeyLength() == 2 * t - 1) {
 				splitChild(x, i);
 				if (k.compareTo(x.getKey(i)) > 0) {
 					i = i + 1;
 				}
 			}
 			insertNonFull(x.getChild(i), k);
+		}
+	}
+	
+	public void remove(Key key) {
+		delete(root, key);
+	}
+	
+	public void delete(Node<Key> x, Key key) {
+		if (x.getIsLeaf()) {
+			deleteFromLeaf(x, key);
+		}
+	}
+	
+	private void deleteFromLeaf(Node<Key> x, Key key) {
+		Integer i = 0;
+		while (i < x.getKeyLength() && key.compareTo(x.getKey(i)) > 0) {
+			i = i + 1;
+		}
+		
+		if (i < x.getKeyLength() && key.compareTo(x.getKey(i)) == 0) {
+			x.removeKey(i);
+		}
+	}
+	
+	private void deleteFromInternalNode(int i) {
+		
+	}
+	
+	private Key findGreatestInSubTree(Node<Key> root) 
+	{
+		if (root.getIsLeaf()) {
+			return root.getLastKey();
+		} else {
+			return findGreatestInSubTree(root.getLastChild());
+		}
+	}
+	
+	private Key findSmallestInSubTree(Node<Key> root) {
+		if (root.getIsLeaf()) {
+			return root.getFirstKey();
+		} else {
+			return findSmallestInSubTree(root.getFirstChild());
 		}
 	}
 
@@ -90,20 +134,16 @@ public class BTree<Key extends Comparable<Key>> {
 	}
 
 	public static void main(String[] args) {
-		BTree<Integer> tree = BTree.newInstance(3);
-		tree.insert(10);
-		tree.insert(12);
-		tree.insert(13);
-		tree.insert(11);
-		tree.insert(14);
-		tree.insert(15);
-		tree.insert(16);
-		tree.insert(17);
-		tree.insert(18);
-		
-
-
-		Pair<Node<Integer>, Integer> result = tree.get(11);
+		BTree<Integer> tree = BTree.newInstance(6);
+		tree.put(10);
+		tree.put(12);
+		tree.put(13);
+		tree.put(11);
+		tree.put(14);
+		tree.put(15);
+	
+		System.out.println(tree.walk(0));
+		tree.remove(13);
 		System.out.println(tree.walk(0));
 	}
 

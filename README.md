@@ -14,4 +14,5 @@ String Get(string data_value);<br/>
 void Remove(string key);
 </code>
 
-<h1> </h1>
+<h4>Result</h4>
+<h4>Conclusion</h4>

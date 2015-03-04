@@ -1,5 +1,5 @@
 package store;
 
-public interface IRemovable<K extends Comparable<K>> {
-	void remove(K key);
+public interface IRemovable {
+	void remove(String value);
 }

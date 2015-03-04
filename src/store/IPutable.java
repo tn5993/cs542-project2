@@ -1,5 +1,5 @@
 package store;
 
 public interface IPutable<K extends Comparable<K>> {
-	void put(K key);
+	void put(K key, String value);
 }

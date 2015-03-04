@@ -1,7 +1,7 @@
 # An Indexing Mechanism
-<p>Cory Hayward, Thinh Nguyen, He Xuebin </br>
-Project 2 for CS542: Database Management Systems </br>
-Professor Singh </br>
+<p>Cory Hayward, Thinh Nguyen, He Xuebin <br/>
+Project 2 for CS542: Database Management Systems <br/>
+Professor Singh <br/>
 4 March 2015</p>
 
 <h4>Introduction</h4>

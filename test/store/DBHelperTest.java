@@ -11,10 +11,11 @@ public class DBHelperTest extends TestCase{
 		junit.textui.TestRunner.main(name);
 	}
 	
+	/* Transaction 1 get, Transaction 2 remove, Transaction 3 get */
 	public void testTransaction() throws Throwable {
 		DBHelper<Integer> db1 = DBHelper.getInstance();
 		System.out.println("Prepare data");
-		for (int i = 0; i < 20; i++) {
+		for (int i = 0; i < 10001; i++) {
 			db1.put(Integer.valueOf(i), "GGG" + i);
 		}
 		
@@ -23,7 +24,7 @@ public class DBHelperTest extends TestCase{
 			public void runTest() throws Throwable {
 				System.out.println("Transaction 1 get");
 				DBHelper<Integer> db = DBHelper.getInstance();
-				String value = db.get(10);
+				String value = db.get(10000);
 				System.out.println(value);
 			}
 		};
@@ -31,10 +32,9 @@ public class DBHelperTest extends TestCase{
 		TestRunnable tr2 = new TestRunnable() {
 			@Override
 			public void runTest() throws Throwable {
-				Thread.sleep(50);
 				DBHelper<Integer> db = DBHelper.getInstance();
 				System.out.println("Transaction 2 remove");
-				db.remove("GGG10");
+				db.remove("GGG10000");
 				
 			}
 		};
@@ -43,10 +43,8 @@ public class DBHelperTest extends TestCase{
 			@Override
 			public void runTest() throws Throwable {
 				System.out.println("Transaction 3 get");
-				Thread.sleep(50);
 				DBHelper<Integer> db = DBHelper.getInstance();
-				Thread.sleep(50);
-				String value = db.get(10);
+				String value = db.get(10000);
 				System.out.println(value);
 			}
 		};

@@ -10,14 +10,12 @@ public class BTree<T> {
     private int _min = (_m+1)/2;
     private BNode<T> _root = null;
 
-    private BTree(int m) {
+    public BTree(int m) {
         _m = m;
         _min = (_m+1)/2;
     }
 
-    public static <T> BTree<T> newInstance(Integer m) {
-    	return new BTree<T>(m);
-    }
+
 
     // INSERTION
     //////////////////////////////////////////////////////////////////////

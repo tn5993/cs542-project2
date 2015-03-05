@@ -24,3 +24,4 @@ We performed test for the BTree in test source folder. Also, thread safe tests w
 <h4> Result </h4>
 
 <h4> Conclusion </h4>
+We successfully implemented a B+ Tree algorithm that utilizes the five interfaces described in the project text. By creating our own method for this structure we manage to broaden our understanding of how the indexing mechanism works for information storage and retrieval.
